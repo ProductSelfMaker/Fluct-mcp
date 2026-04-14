@@ -7,7 +7,7 @@ Stop vibe coding blind — let your agent see the whole graph before it touches 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-8b5cf6.svg)](https://modelcontextprotocol.io)
 
-> 🚧 **Phase 1 partial — stdio MCP works.** Core CRUD + AI context tools run end-to-end against a local PGlite DB. Scenarios, analyze_impact, and the whiteboard UI are still landing (see [`ROADMAP.md`](./ROADMAP.md)).
+> ✅ **Phase 1 complete — MCP server is feature-complete.** 28 tools + `bootstrap_from_repo` / `sync_from_repo` prompts run against a local PGlite DB. Whiteboard UI lands in Phase 2 (see [`ROADMAP.md`](./ROADMAP.md)).
 
 ---
 
