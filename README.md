@@ -7,7 +7,7 @@ Stop vibe coding blind — let your agent see the whole graph before it touches 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-8b5cf6.svg)](https://modelcontextprotocol.io)
 
-> ⚠️ **Phase 0 — scaffolding only.** Core code port lands in Phase 1 (see [`ROADMAP.md`](./ROADMAP.md)).
+> 🚧 **Phase 1 partial — stdio MCP works.** Core CRUD + AI context tools run end-to-end against a local PGlite DB. Scenarios, analyze_impact, and the whiteboard UI are still landing (see [`ROADMAP.md`](./ROADMAP.md)).
 
 ---
 
@@ -36,15 +36,15 @@ This is the **open core** of [fluct.tools](https://fluct.tools) — same MCP ser
 
 ## Quick start
 
-_Coming with Phase 1._ Target UX:
-
 ```bash
 git clone https://github.com/ProductSelfMaker/Fluct-mcp
 cd Fluct-mcp
-docker compose up            # or: npm install && npx fluct-mcp
+npm install
+npm run db:init       # initializes local PGlite DB at ~/.fluct/db
+npm run dev           # runs the stdio MCP server on stdin/stdout
 ```
 
-Then register the MCP server in your AI client (stdio):
+Register in your AI client config (Claude Code / Cursor / etc.):
 
 ```json
 {
@@ -54,7 +54,9 @@ Then register the MCP server in your AI client (stdio):
 }
 ```
 
-UI available at `http://localhost:3000`.
+By default the server opens (or auto-creates) a map stored at `~/.fluct/db`. Override with `FLUCT_DB_PATH` or `FLUCT_MAP_ID` — see [`.env.example`](./.env.example).
+
+> The whiteboard UI and Docker image land in Phase 2 (see [`ROADMAP.md`](./ROADMAP.md)). Phase 1 is MCP-only.
 
 ## Tech stack (planned)
 

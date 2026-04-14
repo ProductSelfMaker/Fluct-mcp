@@ -10,18 +10,21 @@ _current_
 - [x] `package.json` with target package name (`fluct-mcp`)
 - [ ] Repo description + topics set on GitHub
 
-## Phase 1 — Core port (~1 week)
+## Phase 1 — Core port (in progress)
 
 Goal: `npx fluct-mcp` works end-to-end with stdio MCP and a local PGlite database, no Supabase, no Vercel.
 
-- [ ] Extract `@fluct/core`: schema, MCP tool implementations, bootstrap/sync prompts
-- [ ] Wire Drizzle → PGlite (`@electric-sql/pglite` + `drizzle-orm/pglite`)
-- [ ] Add `FLUCT_MODE=oss` branch in auth layer — skip Supabase Auth, single-user trust model
-- [ ] Stub out org / OAuth / projects / share-link / MCP-lock code paths for OSS mode
-- [ ] `bin/fluct-mcp.ts` stdio entry point (MCP server only, no UI)
-- [ ] Migration runner for PGlite
-- [ ] Minimal `.env.example` (effectively empty)
-- [ ] README quick-start finalized
+- [x] Drizzle schema ported (maps / nodes / edges / scenarios / permissions / comments / snapshots)
+- [x] Consolidated `0001_init.sql` migration — idempotent, `IF NOT EXISTS` everywhere
+- [x] PGlite adapter (`drizzle-orm/pglite`) + migration runner
+- [x] Single-user auth stub — auto-creates default map on first run, `FLUCT_MAP_ID` override
+- [x] `bin/fluct-mcp.ts` stdio entry point
+- [x] Core MCP tools: `get_service_map`, `get_node`, `create_product`, `create_page`, `create_feature`, `update_node`, `delete_node`, `search_nodes`, `add_dependency` (idempotent), `remove_dependency`, `update_ai_context`
+- [ ] Scenario tools (`create_scenario`, steps, anchors, connections)
+- [ ] `analyze_impact` — the kick feature
+- [ ] Bootstrap + sync prompts (`bootstrap_from_repo`, `sync_from_repo`)
+- [ ] Snapshot + comment tools
+- [ ] First npm release (`fluct-mcp@0.1.0` → 0.2.0 once scenarios land)
 
 ## Phase 2 — Whiteboard UI (~1 week)
 
