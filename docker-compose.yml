@@ -1,0 +1,41 @@
+# docker-compose for Fluct local self-host.
+#
+# Phase 0: skeleton only — the services below don't build yet because
+# the source tree isn't ported from fluct.tools. Phase 1 fills in the
+# Dockerfile and Phase 2 makes `docker compose up` end-to-end.
+#
+# Design: PGlite runs in-process inside the Next.js app, so a separate
+# DB container is not required by default. The commented `postgres`
+# service is an opt-in alternative for users who'd rather run a real
+# Postgres instance.
+
+services:
+  fluct:
+    # build: .                   # TODO(phase-1): Dockerfile
+    # image: fluct/fluct-mcp:latest
+    image: busybox               # placeholder so `docker compose config` validates
+    command: ['echo', 'Fluct-mcp Phase 0 — see ROADMAP.md']
+    ports:
+      - '3000:3000'              # web UI
+      - '3001:3001'              # HTTP MCP endpoint (stdio is the default)
+    environment:
+      FLUCT_MODE: oss
+      FLUCT_DB_PATH: /data/fluct.db
+    volumes:
+      - fluct-data:/data
+
+  # postgres:
+  #   # Optional — use this instead of PGlite by setting
+  #   # FLUCT_DATABASE_URL=postgres://fluct:fluct@postgres:5432/fluct
+  #   image: postgres:16-alpine
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: fluct
+  #     POSTGRES_PASSWORD: fluct
+  #     POSTGRES_DB: fluct
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  fluct-data:
+  # postgres-data:

@@ -1,0 +1,29 @@
+{
+  "name": "fluct-mcp",
+  "version": "0.0.0",
+  "description": "AI-native service map for coding agents. Standard MCP, runs locally.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/ProductSelfMaker/Fluct-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ProductSelfMaker/Fluct-mcp.git"
+  },
+  "bugs": "https://github.com/ProductSelfMaker/Fluct-mcp/issues",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-coding",
+    "claude-code",
+    "cursor",
+    "service-map",
+    "codebase-intelligence",
+    "developer-tools"
+  ],
+  "scripts": {
+    "dev": "echo 'Phase 1 — not yet implemented. See ROADMAP.md'",
+    "build": "echo 'Phase 1 — not yet implemented.'"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
