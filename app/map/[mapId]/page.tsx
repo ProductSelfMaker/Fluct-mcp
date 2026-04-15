@@ -2,6 +2,10 @@ import { notFound } from 'next/navigation'
 import { loadMap } from '../../actions/map.ts'
 import { MapEditor } from './editor-client.tsx'
 
+// Dynamic — the map data comes from the local PGlite DB which isn't
+// populated at build time.
+export const dynamic = 'force-dynamic'
+
 // Phase 2a: read-mostly editor. Loads the map server-side, hands off to
 // a React Flow client component for visualization. All writes happen
 // via MCP (the user's agent), not via UI buttons yet.

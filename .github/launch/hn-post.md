@@ -18,7 +18,14 @@ The reason I built this: vibe coding breaks silently. AI agents shipping 5x fast
 
 The core tool in the pack is `analyze_impact`. Before your agent deletes, renames, or rescopes anything, it calls `analyze_impact(nodeId)` and gets back the blast radius: incoming/outgoing edges, scenario steps that reference this node (with anchor status), child nodes, permissions, and change-kind-specific risk bullets. A README can't answer "what breaks if I change this" — a graph can.
 
-Everything runs locally on PGlite (Postgres in WASM — no Docker, no Supabase, no cloud). Single command:
+Everything runs locally on PGlite (Postgres in WASM — no Docker, no Supabase, no cloud). Single command to boot:
+
+```bash
+npx -y fluct-mcp ui       # Whiteboard at http://localhost:3000
+npx -y fluct-mcp          # stdio MCP for AI client config
+```
+
+Or wire it into your AI client directly:
 
 ```json
 { "mcpServers": { "fluct": { "command": "npx", "args": ["-y", "fluct-mcp"] } } }

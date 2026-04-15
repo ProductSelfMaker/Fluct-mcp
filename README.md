@@ -36,9 +36,21 @@ This is the **open core** of [fluct.tools](https://fluct.tools) — same MCP ser
 
 ## Quick start
 
-### Option A — MCP only (quickest)
+No clone. No `npm install`. No Docker. One command per use case:
 
-For agents that just need the map backend, no UI:
+```bash
+# The whiteboard UI at http://localhost:3000
+npx -y fluct-mcp ui
+
+# The MCP stdio server (paste this into your AI client config — see below)
+npx -y fluct-mcp
+```
+
+First run auto-creates `~/.fluct/db` (PGlite — Postgres in WASM, single file) and seeds the default map.
+
+### Wire it into your AI client
+
+Add to Claude Code / Cursor / Cline / Windsurf / any MCP-compatible client:
 
 ```json
 {
@@ -48,20 +60,29 @@ For agents that just need the map backend, no UI:
 }
 ```
 
-Paste into your AI client's MCP config (Claude Code, Cursor, Cline, Windsurf, ...). First call auto-creates `~/.fluct/db` and the default map.
+Then start a chat and ask the agent to `bootstrap_from_repo` or just call any of the 28 tools directly.
 
-### Option B — Full experience (MCP + UI)
+### Subcommands
+
+| Command | What it does |
+|---|---|
+| `npx -y fluct-mcp` | stdio MCP server (for agents) |
+| `npx -y fluct-mcp ui` | Web UI on port 3000 (override with `PORT=`) |
+| `npx -y fluct-mcp migrate` | Re-run database migrations |
+| `npx -y fluct-mcp help` | Show available env vars and subcommands |
+
+### From a clone (for contributors)
 
 ```bash
 git clone https://github.com/ProductSelfMaker/Fluct-mcp
 cd Fluct-mcp
 npm install
-npm run db:init            # PGlite DB at ~/.fluct/db
-npm run dev                # UI on http://localhost:3000
+npm run db:init            # initialize PGlite DB
+npm run dev                # UI with hot reload on :3000
 npm run mcp                # stdio MCP (second shell)
 ```
 
-Override the DB location with `FLUCT_DB_PATH` or pin a specific map with `FLUCT_MAP_ID` — see [`.env.example`](./.env.example).
+Env overrides: `FLUCT_DB_PATH`, `FLUCT_MAP_ID`, `FLUCT_DEFAULT_MAP`, `PORT` — see [`.env.example`](./.env.example).
 
 ## What you get at `localhost:3000`
 

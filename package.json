@@ -25,6 +25,8 @@
   },
   "files": [
     "dist/",
+    ".next/standalone/",
+    ".next/static/",
     "LICENSE",
     "README.md"
   ],
@@ -34,7 +36,9 @@
     "start": "next start",
     "mcp": "tsx bin/fluct-mcp.ts",
     "mcp:build": "tsc -p tsconfig.build.json && mkdir -p dist/src/db/migrations && cp src/db/migrations/*.sql dist/src/db/migrations/",
-    "prepublishOnly": "npm run mcp:build",
+    "ui:build": "next build && cp -r public .next/standalone/ 2>/dev/null || true && mkdir -p .next/standalone/.next && cp -r .next/static .next/standalone/.next/static",
+    "release:build": "npm run mcp:build && npm run ui:build",
+    "prepublishOnly": "npm run release:build",
     "typecheck": "tsc --noEmit",
     "db:init": "tsx src/db/migrate.ts",
     "format": "prettier --write ."
