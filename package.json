@@ -21,19 +21,20 @@
     "developer-tools"
   ],
   "bin": {
-    "fluct-mcp": "./bin/fluct-mcp.js"
+    "fluct-mcp": "./dist/bin/fluct-mcp.js"
   },
   "files": [
-    "bin/",
     "dist/",
-    "src/db/migrations/"
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "mcp": "tsx bin/fluct-mcp.ts",
-    "mcp:build": "tsc -p tsconfig.build.json",
+    "mcp:build": "tsc -p tsconfig.build.json && mkdir -p dist/src/db/migrations && cp src/db/migrations/*.sql dist/src/db/migrations/",
+    "prepublishOnly": "npm run mcp:build",
     "typecheck": "tsc --noEmit",
     "db:init": "tsx src/db/migrate.ts",
     "format": "prettier --write ."

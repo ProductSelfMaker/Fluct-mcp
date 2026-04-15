@@ -36,30 +36,32 @@ This is the **open core** of [fluct.tools](https://fluct.tools) — same MCP ser
 
 ## Quick start
 
-```bash
-git clone https://github.com/ProductSelfMaker/Fluct-mcp
-cd Fluct-mcp
-npm install
-npm run db:init       # initializes local PGlite DB at ~/.fluct/db
-npm run dev           # Next.js UI at http://localhost:3000
-# (in a second shell or config block)
-npm run mcp           # stdio MCP server on stdin/stdout
-```
+### Option A — MCP only (quickest)
 
-Register the MCP server in your AI client config (Claude Code / Cursor / etc.):
+For agents that just need the map backend, no UI:
 
 ```json
 {
   "mcpServers": {
-    "fluct": {
-      "command": "npx",
-      "args": ["tsx", "<path-to>/Fluct-mcp/bin/fluct-mcp.ts"]
-    }
+    "fluct": { "command": "npx", "args": ["-y", "fluct-mcp"] }
   }
 }
 ```
 
-By default the map is stored at `~/.fluct/db`. Override with `FLUCT_DB_PATH` or `FLUCT_MAP_ID` — see [`.env.example`](./.env.example).
+Paste into your AI client's MCP config (Claude Code, Cursor, Cline, Windsurf, ...). First call auto-creates `~/.fluct/db` and the default map.
+
+### Option B — Full experience (MCP + UI)
+
+```bash
+git clone https://github.com/ProductSelfMaker/Fluct-mcp
+cd Fluct-mcp
+npm install
+npm run db:init            # PGlite DB at ~/.fluct/db
+npm run dev                # UI on http://localhost:3000
+npm run mcp                # stdio MCP (second shell)
+```
+
+Override the DB location with `FLUCT_DB_PATH` or pin a specific map with `FLUCT_MAP_ID` — see [`.env.example`](./.env.example).
 
 ## What you get at `localhost:3000`
 

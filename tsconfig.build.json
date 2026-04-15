@@ -4,11 +4,22 @@
     "noEmit": false,
     "outDir": "./dist",
     "rootDir": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "allowImportingTsExtensions": false
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "verbatimModuleSyntax": false,
+    "incremental": false
   },
   "include": ["src/**/*", "bin/**/*"],
-  "exclude": ["**/*.test.ts", "dist"]
+  "exclude": [
+    "**/*.test.ts",
+    "dist",
+    "app/**/*",
+    "next.config.ts",
+    "postcss.config.mjs"
+  ]
 }
