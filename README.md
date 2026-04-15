@@ -7,7 +7,7 @@ Stop vibe coding blind — let your agent see the whole graph before it touches 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-8b5cf6.svg)](https://modelcontextprotocol.io)
 
-> ✅ **Phase 1 complete — MCP server is feature-complete.** 28 tools + `bootstrap_from_repo` / `sync_from_repo` prompts run against a local PGlite DB. Whiteboard UI lands in Phase 2 (see [`ROADMAP.md`](./ROADMAP.md)).
+> ✅ **Phase 1 & 2a complete.** 28 MCP tools + 2 prompts + a read-first Next.js UI at `localhost:3000`. Agents drive edits via MCP; humans verify through the canvas + side panel. Full editor (create/edit via UI, scenario editor, snapshots diff) lands in 2b — see [`ROADMAP.md`](./ROADMAP.md).
 
 ---
 
@@ -41,22 +41,33 @@ git clone https://github.com/ProductSelfMaker/Fluct-mcp
 cd Fluct-mcp
 npm install
 npm run db:init       # initializes local PGlite DB at ~/.fluct/db
-npm run dev           # runs the stdio MCP server on stdin/stdout
+npm run dev           # Next.js UI at http://localhost:3000
+# (in a second shell or config block)
+npm run mcp           # stdio MCP server on stdin/stdout
 ```
 
-Register in your AI client config (Claude Code / Cursor / etc.):
+Register the MCP server in your AI client config (Claude Code / Cursor / etc.):
 
 ```json
 {
   "mcpServers": {
-    "fluct": { "command": "npx", "args": ["fluct-mcp"] }
+    "fluct": {
+      "command": "npx",
+      "args": ["tsx", "<path-to>/Fluct-mcp/bin/fluct-mcp.ts"]
+    }
   }
 }
 ```
 
-By default the server opens (or auto-creates) a map stored at `~/.fluct/db`. Override with `FLUCT_DB_PATH` or `FLUCT_MAP_ID` — see [`.env.example`](./.env.example).
+By default the map is stored at `~/.fluct/db`. Override with `FLUCT_DB_PATH` or `FLUCT_MAP_ID` — see [`.env.example`](./.env.example).
 
-> The whiteboard UI and Docker image land in Phase 2 (see [`ROADMAP.md`](./ROADMAP.md)). Phase 1 is MCP-only.
+## What you get at `localhost:3000`
+
+- Auto-create the default map on first visit, jump straight to `/map/<id>`.
+- React Flow canvas with products, pages, features, and dependency edges laid out.
+- Click any node → side panel with description, policy, endpoint, and the full **AI context** tab (source files, test files, state touches, runtime context, I/O contract).
+- No login, no homepage — single local user, just the editor.
+- Writes go through your AI agent via MCP. The UI refreshes on reload.
 
 ## Tech stack (planned)
 

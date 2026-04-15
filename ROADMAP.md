@@ -30,15 +30,27 @@ Goal: `npx fluct-mcp` works end-to-end with stdio MCP and a local PGlite databas
 
 **Surface total**: 28 MCP tools + 2 prompts. Parity with hosted Fluct for the single-user path.
 
-## Phase 2 — Whiteboard UI (~1 week)
+## Phase 2a — Read-first UI ✅
 
-Goal: `npm run dev` serves the map editor at `localhost:3000`, single-user, no login.
+Goal: `npm run dev` serves a usable map viewer on `localhost:3000`, single-user, no login, no homepage. Edits go through MCP; humans verify visually.
 
-- [ ] Port `app/map/[mapId]` route + editor client
-- [ ] Port `app/dashboard` (personal map list only)
-- [ ] OSS-mode conditional rendering: hide org/OAuth/share/project UI
-- [ ] Port whiteboard canvas + scenario editor + side panel + AI context tab
-- [ ] Seed first map automatically on first run
+- [x] Next.js 16 + Tailwind 4 + React Flow 12 scaffold
+- [x] `/` root route auto-resolves or creates a default map, redirects to `/map/<id>`
+- [x] `/map/[mapId]` server-side loads the full graph via Drizzle + PGlite
+- [x] React Flow canvas with products / pages / features + hierarchy and dependency edges color-coded
+- [x] Side panel on node click: name, identifier, description, policy, endpoint, status, **AI context** (source/test files, state touches, runtime context, I/O contract)
+- [x] No auth, no homepage, no org UI — single local user
+- [x] Production build passes (`next build`)
+
+## Phase 2b — Full editor parity (next)
+
+- [ ] Port scenario editor + playback (canvas-side scenario drawing + swim-lane playback)
+- [ ] Inline edit on side panel (description, policy, etc. — writing via local server actions instead of MCP)
+- [ ] Snapshot diff viewer (version-diff-panel port)
+- [ ] Permissions panel port
+- [ ] Markdown + PNG export
+- [ ] Undo / redo
+- [ ] Map switcher for users with multiple maps
 
 ## Phase 3 — Release prep (~3 days)
 
